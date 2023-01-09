@@ -1,0 +1,94 @@
+package seleniumpractise;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Firsttest {
+
+	public static void main(String[] args) throws IOException, InterruptedException{
+		// TODO Auto-generated method stub
+		WebDriverManager.chromedriver().setup();
+		
+		
+		ChromeDriver driver = new ChromeDriver();
+		
+		File file =    new File("C:\\Downloads\\Caldata.xls");
+	        
+	        //Create an object of FileInputStream class to read excel file
+	        FileInputStream inputStream = new FileInputStream(file);
+	        
+	        //creating workbook instance that refers to .xls file
+	        HSSFWorkbook wb=new HSSFWorkbook(inputStream);
+	        
+	        //creating a Sheet object using the sheet Name
+	        HSSFSheet sheet=wb.getSheet("Student");
+	        
+	        //get all rows in the sheet
+	        int rowCount=sheet.getLastRowNum()-sheet.getFirstRowNum();
+	        
+	       //Creating an object of ChromeDriver
+	       // WebDriver driver = new ChromeDriver();
+	        
+	  
+       //iterate over all the rows in Excel and put data in the form.
+	        for(int i=1;i<=rowCount;i++) {
+	            //Enter the values read from Excel 
+	        	//int cellcount=sheet.getRow(i).getLastCellNum();
+	        	
+	        	
+				int j=0;
+						
+	              String url = (sheet.getRow(i).getCell(j).getStringCellValue());
+	              
+	              String url1="http://"+url+"/ads.txt";
+	              driver.get(url1);
+	               
+	                 driver.manage().window().maximize();
+	                 Thread.sleep(15000);
+	                 HSSFCell cell = sheet.getRow(i).createCell(1);
+	                 if(driver.getPageSource().contains("mcanvas.com"))
+	         		{
+	                	 cell.setCellValue("Exist");
+	         		}
+
+	         		else
+	         		{
+	         			cell.setCellValue("Does not exist");
+	         		} 
+	                 FileOutputStream outputStream = new FileOutputStream("C:\\\\Downloads\\\\Caldata.xls");
+	             	wb.write(outputStream); 
+	       	     
+ 
+         }
+	     
+	        driver.close();
+	        }
+	}
+	
+
+    
+	        
+	        
+	       
+	      
+	      
+	        	 
+	        	 
+	      
+	        	 
+	       
+	        
+	        
+	            
+	        
+	    	
+
+
