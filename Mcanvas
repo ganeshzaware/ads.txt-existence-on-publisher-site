@@ -16,8 +16,6 @@ public class Firsttest {
 	public static void main(String[] args) throws IOException, InterruptedException{
 		// TODO Auto-generated method stub
 		WebDriverManager.chromedriver().setup();
-		
-		
 		ChromeDriver driver = new ChromeDriver();
 		
 		File file =    new File("C:\\Downloads\\Caldata.xls");
@@ -42,9 +40,7 @@ public class Firsttest {
 	        for(int i=1;i<=rowCount;i++) {
 	            //Enter the values read from Excel 
 	        	//int cellcount=sheet.getRow(i).getLastCellNum();
-	        	
-	        	
-				int j=0;
+	        	int j=0;
 						
 	              String url = (sheet.getRow(i).getCell(j).getStringCellValue());
 	              
